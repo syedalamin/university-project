@@ -30,25 +30,28 @@ const localGuardianValidationSchema = z.object({
   address: z.string().min(1, 'Local Guardian Contact No is required'),
 });
 
-const studentValidationSchema = z.object({
-  id: z.string().min(1, 'ID is required'),
-  password: z.string().max(20),
-  name: userNameValidationSchema,
-  gender: z.enum(['male', 'female', 'other']),
-  dateOfBirth: z.string().optional(),
-  email: z.string().email('Invalid email format'),
-  contactNo: z.string().min(1, 'Contact No is required'),
-  emergencyContactNo: z.string().min(1, 'Emergency Contact No is required'),
-  bloodGroup: z
-    .enum(['A+', 'B+', 'A-', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-    .optional(),
-  presentAddress: z.string().min(1, 'Present Address is required'),
-  permanentAddress: z.string().min(1, 'Permanent Address is required'),
-  guardian: guardianValidationSchema,
-  localGuardian: localGuardianValidationSchema,
-  profileImage: z.string().optional(),
-  isActive: z.enum(['active', 'blocked']).default('active'),
-  isDeleted: z.boolean().default(false)
+const createStudentValidationSchema = z.object({
+  body: z.object({
+    password: z.string().max(20).optional(),
+    student: z.object({
+      name: userNameValidationSchema,
+      gender: z.enum(['male', 'female', 'other']),
+      dateOfBirth: z.string().optional(),
+      email: z.string().email('Invalid email format'),
+      contactNo: z.string().min(1, 'Contact No is required'),
+      emergencyContactNo: z.string().min(1, 'Emergency Contact No is required'),
+      bloodGroup: z
+        .enum(['A+', 'B+', 'A-', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      presentAddress: z.string().min(1, 'Present Address is required'),
+      permanentAddress: z.string().min(1, 'Permanent Address is required'),
+      guardian: guardianValidationSchema,
+      localGuardian: localGuardianValidationSchema,
+      profileImage: z.string().optional(),
+    }),
+  }),
 });
 
-export default studentValidationSchema;
+export const StudentValidation = {
+  createStudentValidationSchema,
+};
