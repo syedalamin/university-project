@@ -1,8 +1,10 @@
 import config from '../../config';
+import { AcademicSemester } from '../academicSemester/academic.semester.model';
 import { TStudent } from '../student/student.interface';
 import { Student } from '../student/student.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
+import { generateStudentId } from './user.utils';
 
 const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   // create a user object
@@ -13,8 +15,22 @@ const createStudentIntoDB = async (password: string, studentData: TStudent) => {
   // set student role
   userData.role = 'student';
 
+
+  // year semester code , 4 digit number
+
+
+
+  // find academic semester info 
+  const admissionSemester = await AcademicSemester.findById(studentData.admissionSemester)
+
+  if(!admissionSemester){
+    throw new Error('Did not found')
+  }
+
+
+
   // manually generated id
-  userData.id = '2030100001';
+  userData.id = await generateStudentId(admissionSemester);
 
   // create a user
 
