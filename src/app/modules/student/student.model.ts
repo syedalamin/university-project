@@ -19,9 +19,10 @@ const userNameSchema = new Schema<TUserName>({
   middleName: { type: String },
   lastName: {
     type: String,
+    required: [true, 'Last Name is required'],
     trim: true,
     maxlength: [20, 'Name can not be more then 20 character'],
-    required: [true, 'Last Name is required'],
+    
   },
 });
 const guardianSchema = new Schema<TGuardian>({
@@ -132,6 +133,10 @@ const studentSchema = new Schema<TStudent, TStudentModel>(
       type: Boolean,
       default: false,
     },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: "AcademicDepartment"
+    }
   },
   {
     timestamps: true,
