@@ -1,10 +1,10 @@
-import status from 'http-status';
 import mongoose from 'mongoose';
-import { TErrorSource, TGenericErrorResponse } from '../interface/error';
+import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 
-
-const handleValidationError = (err: mongoose.Error.ValidationError) : TGenericErrorResponse => {
-  const errorSources: TErrorSource = Object.values(err.errors).map(
+const handleValidationError = (
+  err: mongoose.Error.ValidationError,
+): TGenericErrorResponse => {
+  const errorSources: TErrorSources = Object.values(err.errors).map(
     (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
       return {
         path: val?.path,
@@ -13,9 +13,8 @@ const handleValidationError = (err: mongoose.Error.ValidationError) : TGenericEr
     },
   );
 
+  const statusCode = 400;
 
-
-  const statusCode = status.NOT_FOUND;
   return {
     statusCode,
     message: 'Validation Error',

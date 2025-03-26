@@ -1,21 +1,21 @@
 import mongoose from 'mongoose';
-import { TErrorSource, TGenericErrorResponse } from '../interface/error';
-import status from 'http-status';
+import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 
 const handleCastError = (
   err: mongoose.Error.CastError,
 ): TGenericErrorResponse => {
-  const errorSources: TErrorSource = [
+  const errorSources: TErrorSources = [
     {
-      path: err?.path,
-      message: err?.message,
+      path: err.path,
+      message: err.message,
     },
   ];
 
-  const statusCode = status.NOT_FOUND;
+  const statusCode = 400;
+
   return {
     statusCode,
-    message: 'Validation Error',
+    message: 'Invalid ID',
     errorSources,
   };
 };

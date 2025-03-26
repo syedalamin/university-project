@@ -1,20 +1,25 @@
-import { TErrorSource, TGenericErrorResponse } from '../interface/error';
-import status from 'http-status';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 
 const handleDuplicateError = (err: any): TGenericErrorResponse => {
-    const match = err.message.match(/"([^"]*)"/)
-    const extractedMsg = match && match[1]
-  const errorSources: TErrorSource = [
+  // Extract value within double quotes using regex
+  const match = err.message.match(/"([^"]*)"/);
+
+  // The extracted value will be in the first capturing group
+  const extractedMessage = match && match[1];
+
+  const errorSources: TErrorSources = [
     {
       path: '',
-      message: `${extractedMsg} is already exists`,
+      message: `${extractedMessage} is already exists`,
     },
   ];
 
-  const statusCode = status.NOT_FOUND;
+  const statusCode = 400;
+
   return {
     statusCode,
-    message: 'Validation Error',
+    message: 'Invalid ID',
     errorSources,
   };
 };

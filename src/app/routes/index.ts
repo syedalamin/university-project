@@ -1,14 +1,18 @@
 import { Router } from 'express';
-import { StudentRoutes } from '../modules/student/student.route';
-import { UserRoutes } from '../modules/user/user.route';
-import { AcademicSemesterRoutes } from '../modules/academicSemester/academic.semester.route';
-import { AcademicFacultyRoutes } from '../modules/academicFaculty/academic.faculty.route';
-import { AcademicDepartmentRouters } from '../modules/academicDepartment/academic.department.route';
-import { FacultyRoutes } from '../modules/faculty/faculty.route';
-import { AdminRoutes } from '../modules/admin/admin.route';
-import { CourseRoutes } from '../modules/course/course.route';
-import { SemesterRegistrationRoutes } from '../modules/semesterRegistration/semester.registration.route';
-import { OfferedCourseRoutes } from '../modules/offeredCourse/offered.course.route';
+import { AdminRoutes } from '../modules/Admin/admin.route';
+import { AuthRoutes } from '../modules/Auth/auth.route';
+import { CourseRoutes } from '../modules/Course/course.route';
+
+import { AcademicDepartmentRoutes } from '../modules/AcademicDepartment/academicDepartment.route';
+import { AcademicFacultyRoutes } from '../modules/AcademicFaculty/academicFaculty.route';
+import { AcademicSemesterRoutes } from '../modules/AcademicSemester/academicSemester.route';
+import { EnrolledCourseRoutes } from '../modules/EnrolledCourse/enrolledCourse.route';
+import { FacultyRoutes } from '../modules/Faculty/faculty.route';
+import { offeredCourseRoutes } from '../modules/OfferedCourse/OfferedCourse.route';
+import { semesterRegistrationRoutes } from '../modules/SemesterRegistration/semesterRegistration.route';
+import { StudentRoutes } from '../modules/Student/student.route';
+import { UserRoutes } from '../modules/User/user.route';
+
 const router = Router();
 
 const moduleRoutes = [
@@ -21,6 +25,14 @@ const moduleRoutes = [
     route: StudentRoutes,
   },
   {
+    path: '/faculties',
+    route: FacultyRoutes,
+  },
+  {
+    path: '/admins',
+    route: AdminRoutes,
+  },
+  {
     path: '/academic-semesters',
     route: AcademicSemesterRoutes,
   },
@@ -30,15 +42,7 @@ const moduleRoutes = [
   },
   {
     path: '/academic-departments',
-    route: AcademicDepartmentRouters,
-  },
-  {
-    path: '/faculties',
-    route: FacultyRoutes,
-  },
-  {
-    path: '/admins',
-    route: AdminRoutes,
+    route: AcademicDepartmentRoutes,
   },
   {
     path: '/courses',
@@ -46,11 +50,19 @@ const moduleRoutes = [
   },
   {
     path: '/semester-registrations',
-    route: SemesterRegistrationRoutes,
+    route: semesterRegistrationRoutes,
   },
   {
     path: '/offered-courses',
-    route: OfferedCourseRoutes,
+    route: offeredCourseRoutes,
+  },
+  {
+    path: '/auth',
+    route: AuthRoutes,
+  },
+  {
+    path: '/enrolled-courses',
+    route: EnrolledCourseRoutes,
   },
 ];
 
